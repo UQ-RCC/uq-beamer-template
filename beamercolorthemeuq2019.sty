@@ -1,0 +1,86 @@
+%%
+% XeLaTeX UQ 2019 Beamer Template
+%
+% Author: Zane van Iperen <z.vaniperen@uq.edu.au>
+%%
+\mode<presentation>
+
+\RequirePackage{xcolor}
+
+\makeatletter
+\definecolor{uq2019@main1}{RGB}{81,36,122}
+\definecolor{uq2019@main2}{RGB}{230,38,69}
+\definecolor{uq2019@main3}{RGB}{0,162,199}
+\definecolor{uq2019@main4}{RGB}{235,96,43}
+\definecolor{uq2019@main5}{RGB}{64,133,198}
+\definecolor{uq2019@main6}{RGB}{46,168,54}
+
+\definecolor{uq2019@alt1}{RGB}{150,42,139}
+\definecolor{uq2019@alt2}{RGB}{215,209,204}
+\definecolor{uq2019@alt3}{RGB}{153,148,144}
+\definecolor{uq2019@alt4}{RGB}{200,174,115}
+\definecolor{uq2019@alt5}{RGB}{251,184,0}
+\makeatother
+
+
+% UQ Purple, Dark->Light
+\pgfdeclarehorizontalshading[]{uq2019@uqgrad1}{100bp}{
+	color(0bp)=(uq2019@main1);
+	color(60bp)=(uq2019@main1);
+	color(75bp)=(uq2019@alt1);
+	color(100bp)=(uq2019@alt1)
+}
+
+% UQ Purple, Light->Dark
+\pgfdeclarehorizontalshading[]{uq2019@uqgrad2}{100bp}{
+	color(0bp)=(uq2019@alt1);
+	color(25bp)=(uq2019@alt1);
+	color(40bp)=(uq2019@main1);
+	color(100bp)=(uq2019@main1)
+}
+
+
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=uq2019@main2}
+\setbeamercolor*{example text}{fg=uq2019@main1}
+
+\setbeamercolor*{structure}{fg=uq2019@main1}
+
+\setbeamercolor*{background canvas}{parent=normal text}
+\setbeamercolor*{background}{parent=background canvas}
+
+% Title page colours
+\setbeamercolor*{title page 1/title}{fg=uq2019@main1}
+\setbeamercolor*{title page 1/date}{fg=uq2019@main1}
+\setbeamercolor*{title page 1/author}{fg=uq2019@main1}
+\setbeamercolor*{title page 1/institute}{fg=uq2019@main1}
+
+\setbeamercolor*{title page 2/title}{fg=white}
+\setbeamercolor*{title page 2/date}{fg=white}
+\setbeamercolor*{title page 2/author}{fg=white}
+\setbeamercolor*{title page 2/institute}{fg=white}
+
+\setbeamercolor*{title page 3/title}{fg=white}
+\setbeamercolor*{title page 3/date}{fg=white}
+\setbeamercolor*{title page 3/author}{fg=white}
+\setbeamercolor*{title page 3/institute}{fg=white}
+
+\setbeamercolor*{title page 4/title}{fg=white}
+\setbeamercolor*{title page 4/date}{fg=white}
+\setbeamercolor*{title page 4/author}{fg=white}
+\setbeamercolor*{title page 4/institute}{fg=white}
+
+% Make sure the original beamer definitions work
+\setbeamercolor*{title}{parent=title page 1/title}
+\setbeamercolor*{date}{parent=title page 1/date}
+\setbeamercolor*{author}{parent=title page 1/author}
+\setbeamercolor*{institute}{parent=title page 1/institute}
+
+% Thank you page colours
+\setbeamercolor*{thank you}{fg=white}
+
+\setbeamercolor*{thank you/speaker}{parent=thank you}
+\setbeamercolor*{thank you/url}{parent=thank you}
+\setbeamercolor*{thank you/cricos}{parent=thank you}
+
+

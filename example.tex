@@ -1,0 +1,92 @@
+% !TEX program = xelatex
+% !TEX options = -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error "%DOC%"
+\documentclass[xetex,aspectratio=169,12pt]{beamer}
+
+\usetheme{uq2019}
+
+% Arial is a big font, keep the title relatively short
+\title{Presentation Title}
+\subtitle{Subtitle: Arial is a big font, keep it short\ldots}
+\date{\today}
+
+% Define the speaker. These are used for the "Thank You" slides
+\speaker{Joe~Bloggs}
+\speakerinstitution{Faculty of Something}
+\speakeremail{joe.bloggs@uq.edu.au}
+
+% Make the speaker the first author
+\author{
+	\insertspeaker\inst{1} \and Jane~Doe\inst{2}
+}
+
+\institute
+{
+	\inst{1}\insertspeakerinstitution\\
+	The University of Queensland
+	\and
+	\inst{2}Faculty of Something Else\\
+	The University of Queensland
+}
+
+% Not all of these are needed, omit to leave out
+\urlfacebook{facebook.com/uniofqld}
+\urlinstagram{instagram.com/uniofqld}
+\urltwitter{twitter.com/rccuq}
+
+\begin{document}
+	% The standard beamer \titlepage command works
+	\frame{\titlepage}
+
+	% Can also select a specific title page
+	\frame{\titlepage[1]}
+	\frame{\titlepage[2]}
+	\frame{\titlepage[3]}
+	\frame{\titlepage[4]}
+
+	% Use the ugly blue divider
+	\dividerframe{Divider Title}{Divider subtitle}
+
+	\begin{frame}
+		\frametitle{Sample frame title}
+		This is a text in the first frame.
+		This is a text in the first frame.
+		This is a text in the first frame.
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{Two-column slide}
+		\begin{columns}
+			\column{0.5\textwidth}
+				This is a text in first column.
+				$$E=mc^2$$
+				\begin{itemize}
+					\item First item
+					\item Second item
+				\end{itemize}
+
+			\column{0.5\textwidth}
+				This text will be in the second column
+				and on a second tought this is a nice looking
+				layout in some cases.
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Frame title}
+		\framesubtitle{Frame subtitle}
+
+		\alert{Alerted Text}
+		\begin{Example}
+			Example Text
+		\end{Example}
+
+		Regular text
+		\begin{itemize}
+			\item item 1
+			\item item 2
+		\end{itemize}
+	\end{frame}
+
+	\frame{\thankyou}
+\end{document}

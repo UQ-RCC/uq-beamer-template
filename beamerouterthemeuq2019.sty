@@ -1,0 +1,33 @@
+%%
+% XeLaTeX UQ 2019 Beamer Template
+%
+% Author: Zane van Iperen <z.vaniperen@uq.edu.au>
+%%
+\mode<presentation>
+
+\usecolortheme{uq2019}
+
+\RequirePackage{tikz}
+
+\defbeamertemplate*{headline}{uq2019 theme}
+{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[
+			shading			= uq2019@uqgrad2,
+			anchor			= north,
+			minimum width	= \paperwidth,
+			minimum height	= 25bp
+		] (box) at (current page.north){};
+		\node[
+			anchor			= north east,
+			xshift			= -20bp,
+			yshift			= -4bp
+		] (logo) at (current page.north east){\includegraphics[height=14bp]{media/image5.png}};
+	\end{tikzpicture}
+}
+
+% Push the frame title below the banner
+\addtobeamertemplate{frametitle}{\vspace*{2em}}{}
+
+% Disable the nav symbols, they don't work with us
+\defbeamertemplate*{navigation symbols}{uq2019 theme}{}

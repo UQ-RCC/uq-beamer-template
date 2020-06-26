@@ -1,0 +1,300 @@
+%%
+% XeLaTeX UQ 2019 Beamer Template
+%
+% Author: Zane van Iperen <z.vaniperen@uq.edu.au>
+%%
+\mode<presentation>
+
+\usecolortheme{uq2019}
+
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+
+\makeatletter
+
+\newcommand{\uq@addtitletext}{
+	\vbox{}
+	\vfill
+	\vskip1em
+	\begin{beamercolorbox}[sep=8pt,left]{title}
+		\usebeamerfont{title}\inserttitle\par%
+		\ifx\insertsubtitle\@empty%
+		\else%
+		  \vskip0.25em%
+		  {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+		\fi%
+	  \end{beamercolorbox}%
+	  \vskip2em\par
+	\begin{beamercolorbox}[sep=8pt,center]{date}
+	  \usebeamerfont{date}\insertdate
+	\end{beamercolorbox}%\vskip0.5em
+	\begin{beamercolorbox}[sep=8pt,center]{author}
+		\usebeamerfont{author}\insertauthor
+	\end{beamercolorbox}
+	\begin{beamercolorbox}[sep=8pt,center]{institute}
+		\usebeamerfont{institute}\insertinstitute
+	\end{beamercolorbox}
+}
+
+\newcommand{\uq@titlelogo}[3]{
+	\node[
+		anchor			= #2,
+		xshift			= #3,
+		yshift			= -5bp
+	] (n) at (current page.#2) {\includegraphics[height=20bp]{#1}};
+}
+\newcommand{\uq@titlelogoleft}[1]{\uq@titlelogo{#1}{north west}{8pt}}
+\newcommand{\uq@titlelogoright}[1]{\uq@titlelogo{#1}{north east}{-8pt}}
+
+%%
+% Draw a filled top bar, left wedge, and right book page.
+%
+% #1 = The height of the top bar 0<= #1 <= 1. Standard size is 0.15, set to 0 to disable.
+% #2 = Key/Value arguments passed directly to \fill
+%%
+\newcommand{\uq@drawtitledetails}[2]{
+	\begin{scope}
+		% Coordinates for the "left" wedge
+		\begin{scope}[shift={(current page.south west)}]
+			\coordinate (l1) at (0.0, 0.0);
+			\coordinate (l2)  at (0.0, 4.0);
+			\coordinate (l3)  at (4.0, 0.0);
+			\coordinate (lc1) at (0.5, 1.5);
+			\coordinate (lc2) at (1.5, 0.5);
+		\end{scope}
+
+		% Coordinates for the "right" book page
+		\begin{scope}[shift={(current page.south east)}, xscale=-1]
+			\coordinate (r1) at (0.0, 0.0);
+			\coordinate (r2) at (0.0, 1.7);
+			\coordinate (r3) at (3.0, 0.5);
+			\coordinate (rc1) at (1.1,2.15);
+			\coordinate (rc2) at (1.9,1.8);
+			\coordinate (rc3) at (2.2,1.4);
+			\coordinate (rc4) at (1.5,0.3);
+		\end{scope}
+
+		\clip
+		let
+			\p1=(current page.north west),
+			\p2=(current page.north east)
+		in
+			(l1) -- (l2) .. controls(lc1) and (lc2) .. (l3) -- (l1)
+			(r1) -- (r2) .. controls(rc1) and (rc2) .. (r3) .. controls(rc3) and (rc4) .. (r1)
+			(\x1, \y1) rectangle (\x2, \y2 - #1\paperheight)
+		;
+		\fill[#2] (current page.north west) rectangle (current page.south east);
+	\end{scope}
+}
+
+% These guys aren't used anymore, keeping for reference
+% \newcommand{\uq@leftcurve}{
+% 	\begin{scope}[shift={(current page.south west)}]
+% 		\coordinate (x) at (0.5,1.5);
+% 		\coordinate (y) at (1.5,0.5);
+% 		\fill[white] (0, 0) -- (0,4) .. controls(x) and (y) .. (4,0) -- (0,0);
+% 		% \filldraw [gray]	(x) circle [radius=2pt]
+% 		% 					(y) circle [radius=2pt]
+% 		% 					;
+% 	\end{scope}
+% }
+% \newcommand{\uq@rightbook}{
+% 	\begin{scope}[shift={(current page.south east)}, xscale=-1]
+% 		\coordinate (x) at (1.1,2.15);
+% 		\coordinate (y) at (1.9,1.8);
+% 		\coordinate (z) at (2.2,1.4);
+% 		\coordinate (w) at (1.5,0.3);
+% 		\fill[white] (0, 0) -- (0,1.7) .. controls(x) and (y) .. (3,0.5) .. controls(z) and (w) .. (0,0);
+% 		% \filldraw [gray]	(x) circle [radius=2pt]
+% 		% 					(y) circle [radius=2pt]
+% 		% 					(z) circle [radius=2pt]
+% 		% 					(w) circle [radius=2pt]
+% 		% 					;
+% 	\end{scope}
+% }
+
+\defbeamertemplate*{title page}{uq2019 theme}{
+	\begin{tikzpicture}[remember picture,overlay]
+		\uq@drawtitledetails{0.15}{shading=uq2019@uqgrad1}
+		\uq@titlelogoleft{media/image2.png}
+	\end{tikzpicture}
+	\uq@addtitletext
+}
+
+\defbeamertemplate*{title page 2}{uq2019 theme}{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[
+			shading			= uq2019@uqgrad1,
+			anchor			= north,
+			minimum width	= \paperwidth,
+			minimum height	= \paperheight
+		] (background) at (current page.north){};
+		\uq@drawtitledetails{0}{white}
+		\uq@titlelogoleft{media/image2.png}
+	\end{tikzpicture}
+	\uq@addtitletext
+}
+
+\usepackage{adjustbox}
+
+\defbeamertemplate*{title page 3}{uq2019 theme}{
+	\begin{tikzpicture}[remember picture,overlay]
+		% Add the background picture
+		\node[
+			anchor			= north,
+			minimum width	= \paperwidth,
+			minimum height	= \paperheight
+		] (background) at (current page.north){
+			\begin{adjustbox}{min size={\paperwidth}{\paperheight}}
+				\includegraphics{media/image3.jpg}
+			\end{adjustbox}
+		};
+		\uq@drawtitledetails{0.15}{white}
+		\uq@titlelogoleft{media/image4.png}
+	\end{tikzpicture}
+	\uq@addtitletext
+}
+
+\defbeamertemplate*{title page 4}{uq2019 theme}{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[
+			shading			= uq2019@uqgrad2,
+			anchor			= north,
+			minimum width	= \paperwidth,
+			minimum height	= \paperheight
+		] (background) at (current page.north){};
+		\uq@drawtitledetails{0}{white}
+		\uq@titlelogoright{media/image2.png}
+	\end{tikzpicture}
+	\uq@addtitletext
+}
+
+\defbeamertemplate*{divider}{uq2019 theme}{
+	\begin{tikzpicture}[remember picture,overlay]
+		\fill[uq2019@main3] (current page.north west) rectangle (current page.south east);
+		\uq@titlelogoright{media/image2.png}
+	\end{tikzpicture}
+
+	% We deliberately use the "title page" colours here as this is almost
+	% like a "semi-title page". The user still uses \frametitle{} and \framesubtitle{}
+	\setbeamercolor{title}{fg=white}
+	\setbeamercolor{subtitle}{fg=white}
+	\begin{beamercolorbox}[sep=8pt,left]{title}
+		\usebeamerfont{title}\insertframetitle{}\par%
+		\ifx\insertframesubtitle\@empty%
+		\else%
+		  \vskip0.25em%
+		  {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertframesubtitle{}\par}%
+		\fi%
+	\end{beamercolorbox}
+}
+
+%%
+% Create \insertspeaker{,institution,email} commands, used for the thank you slides
+% This method seems nicer than Beamer's
+%%
+\newcommand{\insertspeaker}[1]{}
+\newcommand{\insertspeakerinstitution}[1]{}
+\newcommand{\insertspeakeremail}[1]{}
+
+\newcommand{\speaker}[1]{\renewcommand{\insertspeaker}{#1}}
+\newcommand{\speakerinstitution}[1]{\renewcommand{\insertspeakerinstitution}{#1}}
+\newcommand{\speakeremail}[1]{\renewcommand{\insertspeakeremail}{#1}}
+
+
+\newcommand{\inserturlfacebook}[1]{}
+\newcommand{\urlfacebook}[1]{\renewcommand{\inserturlfacebook}{#1}}
+
+\newcommand{\inserturlinstagram}[1]{}
+\newcommand{\urlinstagram}[1]{\renewcommand{\inserturlinstagram}{#1}}
+
+\newcommand{\inserturltwitter}[1]{}
+\newcommand{\urltwitter}[1]{\renewcommand{\inserturltwitter}{#1}}
+
+
+\newcommand{\uq@addthankyoutext}{
+	\begin{beamercolorbox}[sep=3pt,left]{thank you/speaker}
+		\usebeamerfont{title}Thank you
+	\end{beamercolorbox}
+	\begin{beamercolorbox}[sep=3pt,left]{thank you/speaker}
+		\usebeamerfont{thank you/speaker}\insertspeaker\\
+		\usebeamerfont{thank you/info}\insertspeakerinstitution\\
+		\usebeamerfont{thank you/info}\insertspeakeremail
+	\end{beamercolorbox}%
+
+	\vspace{1.0em}
+
+	\begin{beamercolorbox}[sep=3pt,left]{thank you/url}
+		\usebeamerfont{thank you/url}%
+		\if\inserturlfacebook\empty%
+		\else%
+			\includegraphics[height=\baselineskip]{media/image7.png}\hspace{0.5em}\raisebox{.5\height}{\inserturlfacebook}
+			\vspace{0.5\baselineskip}
+		\fi%
+
+		\if\inserturlinstagram\empty%
+		\else%
+			\includegraphics[height=\baselineskip]{media/image6.png}\hspace{0.5em}\raisebox{.5\height}{\inserturlinstagram}
+			\vspace{0.5\baselineskip}
+		\fi%
+
+		\if\inserturltwitter\empty%
+		\else%
+			\includegraphics[height=\baselineskip]{media/image10.png}\hspace{0.5em}\raisebox{.5\height}{\inserturltwitter}
+		\fi%
+	\end{beamercolorbox}
+
+	\vspace{2.0em}
+
+	\begin{beamercolorbox}[sep=3pt,left]{thank you/url}
+		\usebeamerfont{thank you/cricos}%
+		CRICOS code 00025B
+	\end{beamercolorbox}
+}
+
+\defbeamertemplate*{thank you}{uq2019 theme}{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[
+			shading			= uq2019@uqgrad1,
+			anchor			= north,
+			minimum width	= \paperwidth,
+			minimum height	= \paperheight
+		] (background) at (current page.north){};
+		\uq@drawtitledetails{0}{white}
+		\uq@titlelogoleft{media/image2.png}
+	\end{tikzpicture}
+	\uq@addthankyoutext
+}
+
+%%
+% Override this to allow use of other title pages
+% \titlepage, \titlepage[1] ... \titlepage[3]
+%%
+\renewcommand{\titlepage}[1][]{
+	\if&#1&%
+		\usebeamertemplate*{title page}%
+	\else%
+		\if#11%
+			\usebeamertemplate*{title page}%
+		\else%
+			\setbeamercolor*{title}{parent=title page #1/title}%
+			\setbeamercolor*{date}{parent=title page #1/date}%
+			\setbeamercolor*{author}{parent=title page #1/author}%
+			\setbeamercolor*{institute}{parent=title page #1/institute}%
+			\usebeamertemplate*{title page #1}%
+		\fi%
+	\fi
+}
+
+\newcommand{\thankyou}{\usebeamertemplate*{thank you}}
+
+% This is a hack, but I don't care anymore
+\newcommand{\dividerframe}[2]{{
+	\setbeamertemplate{frametitle}{}
+	\setbeamertemplate{framesubtitle}{}
+	\begin{frame}[plain]{#1}{#2}
+		\usebeamertemplate*{divider}
+	\end{frame}
+}}
+
+\makeatother

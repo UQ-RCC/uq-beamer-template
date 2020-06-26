@@ -1,0 +1,38 @@
+%%
+% XeLaTeX UQ 2019 Beamer Template
+%
+% Author: Zane van Iperen <z.vaniperen@uq.edu.au>
+%%
+\mode<presentation>
+
+\RequirePackage{ifxetex}
+\RequireXeTeX
+
+\RequirePackage{fontspec}
+
+
+%%
+% If Arial isn't on your system, uncomment below and
+% put the fonts in fonts/arial
+%
+% \setsansfont[
+% 	Path			= fonts/arial/,
+% 	BoldFont		= arialbd.ttf,
+% 	ItalicFont		= ariali.ttf,
+% 	BoldItalicFont	= arialbi.ttf,
+% 	Ligatures		= TeX,
+% 	NFSSFamily      = arial
+% ]{arial.ttf}
+%%
+\setsansfont[
+	Ligatures       = TeX,
+	NFSSFamily      = arial
+]{Arial}
+
+\setbeamerfont{thank you/speaker}{size=\scriptsize}
+\setbeamerfont{thank you/info}{size=\scriptsize}
+\setbeamerfont{thank you/url}{family=\ttfamily,size=\scriptsize}
+\setbeamerfont{thank you/cricos}{size=\tiny}
+
+\mode
+<all>
